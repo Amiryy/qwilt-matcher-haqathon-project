@@ -123,7 +123,8 @@ const CategoriesSelector: React.FC<Props> = (props) => {
   const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>(
     []
   );
-
+  const [results, setResults] = useState<SlackChannelType[] | undefined>();
+  const [isLoadingResults, setIsLoadingResults] = useState<boolean>(true);
   const BackButton: React.FC = () => {
     return (
       <button
@@ -162,16 +163,19 @@ const CategoriesSelector: React.FC<Props> = (props) => {
       <button
         onClick={() => {
           if (nextStep === 2) {
-            fetch('http://localhost:8080/user-data', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                ...props.currentUser,
-                categories: selectedCategories,
-              }),
-            });
+            fetch(
+              'https://zone.control.dt-euw2.ecp-rnd.cqloud.com/api/user-data',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  ...props.currentUser,
+                  categories: selectedCategories,
+                }),
+              }
+            );
           }
           setStep(nextStep);
         }}
