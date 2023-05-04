@@ -8,6 +8,11 @@ export interface ActivityType {
   specifics?: string[];
 }
 
+export interface SlackChannelType {
+  id?: string;
+  name: string;
+}
+
 export interface TempUserType {
   firstName: string;
   lastName: string;

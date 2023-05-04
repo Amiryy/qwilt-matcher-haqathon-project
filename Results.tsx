@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { SlackChannelType } from './data';
 
 function getSlackToUrl(channelId: string): string {
   return 'https://qwiltteam.slack.com/app_redirect?channel=' + channelId;
@@ -15,13 +16,8 @@ const TitleSpn = styled.div`
 
 const ResultsDiv = styled.div``;
 
-interface SlackChannel {
-  id?: string;
-  name: string;
-}
-
 interface ResultsProps {
-  slackChannels: SlackChannel[];
+  slackChannels: SlackChannelType[];
 }
 
 export function Results(props: ResultsProps) {
@@ -37,7 +33,7 @@ export function Results(props: ResultsProps) {
           }}
         >
           {channel.name}
-          {channel.id ? '' : ' Channel not yet created'}
+          {channel.id ? 'Channel is Ready' : ' Channel not yet created'}
         </span>
       ))}
     </ResultsDiv>

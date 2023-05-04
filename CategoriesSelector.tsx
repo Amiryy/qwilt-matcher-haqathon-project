@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { CategoryType, TempUserType } from './data';
-import { Category } from "./Category";
+import { CategoryType, SlackChannelType, TempUserType } from './data';
+import { Category } from './Category';
 import { Results } from './Results';
 
 interface Props {
   data: CategoryType[];
   currentUser: TempUserType;
-};
+}
 
 const ControlsDiv = styled.div`
   display: grid;
@@ -64,7 +64,9 @@ const StepCategories: React.FC<{
     <>
       <TitleSpn>Choose two or more favorite interests</TitleSpn>
       {props.data.map((category) => {
-        const selectedIndex = props.selectedCategories.findIndex((c) => c.name === category.name);
+        const selectedIndex = props.selectedCategories.findIndex(
+          (c) => c.name === category.name
+        );
         return (
           <Category
             key={category.name}
@@ -83,15 +85,23 @@ const StepCategories: React.FC<{
 const StepActivities: React.FC<{
   data: CategoryType[];
   selectedCategories: CategoryType[];
-  onChange: (activityName: string, selectedIndex: number, categoryIndex: number) => void;
+  onChange: (
+    activityName: string,
+    selectedIndex: number,
+    categoryIndex: number
+  ) => void;
 }> = (props) => {
   return (
     <>
       <TitleSpn>Choose two or more favorite activities</TitleSpn>
       {props.selectedCategories.flatMap((selectedCategory, categoryIndex) => {
-        const categoryFromData = props.data.find((c) => c.name === selectedCategory.name);
+        const categoryFromData = props.data.find(
+          (c) => c.name === selectedCategory.name
+        );
         return categoryFromData?.activities.map((activity) => {
-          const selectedIndex = selectedCategory.activities.findIndex((a) => a.name === activity.name);
+          const selectedIndex = selectedCategory.activities.findIndex(
+            (a) => a.name === activity.name
+          );
           return (
             <Category
               key={activity.name}
@@ -110,7 +120,9 @@ const StepActivities: React.FC<{
 
 const CategoriesSelector: React.FC<Props> = (props) => {
   const [step, setStep] = useState<number>(0);
-  const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>(
+    []
+  );
 
   const BackButton: React.FC = () => {
     return (
@@ -205,7 +217,7 @@ const CategoriesSelector: React.FC<Props> = (props) => {
             }
           />
         ) : step === 2 ? (
-          <Results slackChannels={[]} />
+          <Results slackChannels={[] as SlackChannelType[]} />
         ) : null}
       </ContentContainer>
       <ControlsDiv>
