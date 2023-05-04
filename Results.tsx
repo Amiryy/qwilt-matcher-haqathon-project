@@ -9,7 +9,8 @@ function getSlackToUrl(channelId: string): string {
 const ChannelDiv = styled.div`
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 0.5rem;
+  grid-template-columns: max-content 1fr max-content;
+  grid-gap: 1rem;
   justify-self: center;
   padding: 1rem 2rem;
   background-color: white;
@@ -34,7 +35,17 @@ const ResultsDiv = styled.div`
   grid-auto-rows: max-content;
   grid-gap: 1rem;
 `;
-
+const ChannelMembersCount = styled.div`
+  font-weight: 500;
+`;
+const ChannelNameSpn = styled.div`
+  font-weight: 600;
+`;
+const ChannelStatus = styled.div`
+  font-weight: 600;
+  justify-self: end;
+  width: max-content;
+`;
 interface ResultsProps {
   isLoading?: boolean;
   slackChannels: SlackChannelType[];
@@ -58,10 +69,15 @@ export function Results(props: ResultsProps) {
             }
           }}
         >
-          {channel.name}
-          {channel.id
-            ? 'Channel is Ready'
-            : 'This channel will be created for you soon'}
+          <ChannelNameSpn>{channel.name}</ChannelNameSpn>
+          <ChannelMembersCount>
+            {channel.employees?.length} {'Members'}
+          </ChannelMembersCount>
+          <ChannelStatus>
+            {channel.id
+              ? 'Channel is Ready'
+              : 'This channel will be created for you soon'}
+          </ChannelStatus>
         </ChannelDiv>
       ))}
     </ResultsDiv>
