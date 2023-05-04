@@ -164,7 +164,7 @@ const CategoriesSelector: React.FC<Props> = (props) => {
         onClick={() => {
           if (nextStep === 2) {
             fetch(
-              'https://zone.control.dt-euw2.ecp-rnd.cqloud.com/api/user-data',
+              'https://zone.control.dt-euw2.ecp-rnd.cqloud.com/qwilder-api/user-data',
               {
                 method: 'POST',
                 headers: {
@@ -175,7 +175,17 @@ const CategoriesSelector: React.FC<Props> = (props) => {
                   categories: selectedCategories,
                 }),
               }
-            );
+            )
+              .then((res) => res.json())
+              .then(() => {
+                setIsLoadingResults(false);
+                setResults([
+                  {
+                    id: '123abcd',
+                    name: 'qwilt-runners',
+                  },
+                ]);
+              });
           }
           setStep(nextStep);
         }}
