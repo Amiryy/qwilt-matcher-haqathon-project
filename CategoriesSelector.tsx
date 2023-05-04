@@ -164,6 +164,9 @@ const CategoriesSelector: React.FC<Props> = (props) => {
           if (nextStep === 2) {
             fetch('http://localhost:8080/user-data', {
               method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
               body: JSON.stringify({
                 ...props.currentUser,
                 categories: selectedCategories,
