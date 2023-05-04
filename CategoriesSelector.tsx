@@ -162,7 +162,7 @@ const CategoriesSelector: React.FC<Props> = (props) => {
       <button
         onClick={() => {
           if (nextStep === 2) {
-            fetch('http://35.234.130.77/user-data', {
+            fetch('api.control.dt-euw2.ecp-rnd.cqloud.com/api/user-data', {
               method: 'POST',
               body: JSON.stringify({
                 ...props.currentUser,
