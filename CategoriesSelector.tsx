@@ -187,6 +187,7 @@ const CategoriesSelector: React.FC<Props> = (props) => {
                 ]);
               })
               .catch((e) => {
+                setIsLoadingResults(false);
                 console.error(e);
                 setResults([
                   {
