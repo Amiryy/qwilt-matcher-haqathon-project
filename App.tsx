@@ -76,11 +76,27 @@ function App(): JSX.Element {
         >
           <TitleSpn>Tell us who you are</TitleSpn>
           <label htmlFor="firstName">First Name</label>
-          <input name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+          <input
+            required
+            name="firstName"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
           <label htmlFor="lastName">Last Name</label>
-          <input name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+          <input
+            required
+            name="lastName"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
           <label htmlFor="email">Email</label>
-          <input name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            required
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <button type="submit">That's me</button>
         </form>
       )}
