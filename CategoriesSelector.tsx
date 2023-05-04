@@ -62,7 +62,7 @@ const StepCategories: React.FC<{
 }> = (props) => {
   return (
     <>
-      <TitleSpn>Choose two or more favorite interests</TitleSpn>
+      <TitleSpn>Choose one or more favorite interests</TitleSpn>
       {props.data.map((category) => {
         const selectedIndex = props.selectedCategories.findIndex(
           (c) => c.name === category.name
@@ -93,7 +93,7 @@ const StepActivities: React.FC<{
 }> = (props) => {
   return (
     <>
-      <TitleSpn>Choose at least one activity</TitleSpn>
+      <TitleSpn>Choose one or more activity</TitleSpn>
       {props.selectedCategories.flatMap((selectedCategory, categoryIndex) => {
         const categoryFromData = props.data.find(
           (c) => c.name === selectedCategory.name
@@ -162,9 +162,12 @@ const CategoriesSelector: React.FC<Props> = (props) => {
       <button
         onClick={() => {
           if (nextStep === 2) {
-            console.log({
-              ...props.currentUser,
-              categories: selectedCategories,
+            fetch('http://35.234.130.77/user-data', {
+              method: 'POST',
+              body: JSON.stringify({
+                ...props.currentUser,
+                categories: selectedCategories,
+              }),
             });
           }
           setStep(nextStep);
@@ -175,7 +178,7 @@ const CategoriesSelector: React.FC<Props> = (props) => {
     );
   };
 
-  const isCategoryStepDone = step === 0 && selectedCategories.length > 1;
+  const isCategoryStepDone = step === 0 && selectedCategories.length > 0;
   const isActivityStepDone =
     step === 1 && selectedCategories.flatMap((c) => c.activities).length > 0;
 
