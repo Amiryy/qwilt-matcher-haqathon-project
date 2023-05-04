@@ -92,9 +92,11 @@ function App(): JSX.Element {
           <label htmlFor="email">Email</label>
           <input
             required
+            pattern="[a-z0-9._%+-]+@qwilt\.com$"
             type="email"
             name="email"
             value={email}
+            title="Email must belong to @qwilt.com"
             onChange={(e) => setEmail(e.target.value)}
           />
           <button type="submit">That's me</button>
