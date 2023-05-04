@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './style.css';
-import { categories } from './data';
+import { categories, TempUserType } from './data';
 import CategoriesSelector from './CategoriesSelector';
 import styled from 'styled-components';
 
@@ -54,7 +54,7 @@ const TitleSpn = styled.div`
 `;
 
 function App(): JSX.Element {
-  const [currentUser, setCurrentUser] = useState<{ firstName: string; lastName: string; email: string }>();
+  const [currentUser, setCurrentUser] = useState<TempUserType>();
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');

@@ -9,7 +9,7 @@ export interface ActivityType {
 }
 
 export interface TempUserType {
-  fullName: string;
+  firstName: string;
   lastName: string;
   email: string;
 }
