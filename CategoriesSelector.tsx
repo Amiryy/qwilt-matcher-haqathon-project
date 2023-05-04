@@ -44,7 +44,7 @@ const ContentContainer = styled.div`
 const CategoriesSelectorContainer = styled.div`
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: 90vh max-content;
+  grid-template-rows: minmax(400px,90vh) max-content;
 `;
 
 const TitleSpn = styled.div`
@@ -93,7 +93,7 @@ const StepActivities: React.FC<{
 }> = (props) => {
   return (
     <>
-      <TitleSpn>Choose two or more favorite activities</TitleSpn>
+      <TitleSpn>Choose at least one activity</TitleSpn>
       {props.selectedCategories.flatMap((selectedCategory, categoryIndex) => {
         const categoryFromData = props.data.find(
           (c) => c.name === selectedCategory.name
@@ -175,6 +175,39 @@ const CategoriesSelector: React.FC<Props> = (props) => {
     );
   };
 
+  const isCategoryStepDone = step === 0 && selectedCategories.length > 1;
+  const isActivityStepDone =
+    step === 1 && selectedCategories.flatMap((c) => c.activities).length > 0;
+
+  const onStepCategoryChange = (
+    categoryName: string,
+    selectedIndex: number
+  ) => {
+    setSelectedCategories((prev) =>
+      selectedIndex > -1
+        ? [...prev.slice(0, selectedIndex), ...prev.slice(selectedIndex + 1)]
+        : [...prev, { name: categoryName, activities: [] }]
+    );
+  };
+
+  const onStepActivityChange = (activityName, selectedIndex, categoryIndex) => {
+    setSelectedCategories((prev) =>
+      prev.map((c, i) =>
+        i === categoryIndex
+          ? {
+              ...c,
+              activities:
+                selectedIndex > -1
+                  ? [
+                      ...c.activities.slice(0, selectedIndex),
+                      ...c.activities.slice(selectedIndex + 1),
+                    ]
+                  : [...c.activities, { name: activityName }],
+            }
+          : c
+      )
+    );
+  };
   return (
     <CategoriesSelectorContainer>
       <ContentContainer>
@@ -182,39 +215,13 @@ const CategoriesSelector: React.FC<Props> = (props) => {
           <StepCategories
             data={props.data}
             selectedCategories={selectedCategories}
-            onChange={(categoryName, selectedIndex) =>
-              setSelectedCategories((prev) =>
-                selectedIndex > -1
-                  ? [
-                      ...prev.slice(0, selectedIndex),
-                      ...prev.slice(selectedIndex + 1),
-                    ]
-                  : [...prev, { name: categoryName, activities: [] }]
-              )
-            }
+            onChange={onStepCategoryChange}
           />
         ) : step === 1 ? (
           <StepActivities
             data={props.data}
             selectedCategories={selectedCategories}
-            onChange={(activityName, selectedIndex, categoryIndex) =>
-              setSelectedCategories((prev) =>
-                prev.map((c, i) =>
-                  i === categoryIndex
-                    ? {
-                        ...c,
-                        activities:
-                          selectedIndex > -1
-                            ? [
-                                ...c.activities.slice(0, selectedIndex),
-                                ...c.activities.slice(selectedIndex + 1),
-                              ]
-                            : [...c.activities, { name: activityName }],
-                      }
-                    : c
-                )
-              )
-            }
+            onChange={onStepActivityChange}
           />
         ) : step === 2 ? (
           <Results slackChannels={[] as SlackChannelType[]} />
@@ -222,11 +229,7 @@ const CategoriesSelector: React.FC<Props> = (props) => {
       </ContentContainer>
       <ControlsDiv>
         {step > 0 ? <BackButton /> : null}
-        {(step === 0 && selectedCategories.length > 1) ||
-        (step === 1 &&
-          selectedCategories.flatMap((c) => c.activities).length > 1) ? (
-          <NextButton />
-        ) : null}
+        {isCategoryStepDone || isActivityStepDone ? <NextButton /> : null}
       </ControlsDiv>
     </CategoriesSelectorContainer>
   );

@@ -85,7 +85,7 @@ function App(): JSX.Element {
               {'The place to create new friendships at Qwilt'}
             </TitleSpn>
             <button type="button" onClick={() => setIsStarted(true)}>
-              Start
+              {'Start'}
             </button>
           </WelcomeDiv>
         )
@@ -100,6 +100,7 @@ function App(): JSX.Element {
             });
           }}
         >
+          <BigTitleSpn>{'Qwilt Matcher'}</BigTitleSpn>
           <TitleSpn>Tell us who you are</TitleSpn>
           <label htmlFor="firstName">First Name</label>
           <input
