@@ -19,7 +19,7 @@ const ChannelDiv = styled.div`
   border-radius: 16px;
   cursor: pointer;
   max-width: 100vw;
-  width: 40rem;
+  width: 50rem;
 `;
 const TitleSpn = styled.div`
   width: 100vw;
