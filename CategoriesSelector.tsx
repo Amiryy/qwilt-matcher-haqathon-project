@@ -123,7 +123,7 @@ const CategoriesSelector: React.FC<Props> = (props) => {
   const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>(
     []
   );
-  const [results, setResults] = useState<SlackChannelType[] | undefined>();
+  const [results, setResults] = useState<SlackChannelType[]>([]);
   const [isLoadingResults, setIsLoadingResults] = useState<boolean>(true);
   const BackButton: React.FC = () => {
     return (
@@ -179,6 +179,15 @@ const CategoriesSelector: React.FC<Props> = (props) => {
               .then((res) => res.json())
               .then(() => {
                 setIsLoadingResults(false);
+                setResults([
+                  {
+                    id: '123abcd',
+                    name: 'qwilt-runners',
+                  },
+                ]);
+              })
+              .catch((e) => {
+                console.error(e);
                 setResults([
                   {
                     id: '123abcd',
@@ -244,7 +253,7 @@ const CategoriesSelector: React.FC<Props> = (props) => {
             onChange={onStepActivityChange}
           />
         ) : step === 2 ? (
-          <Results slackChannels={[] as SlackChannelType[]} />
+          <Results isLoading={isLoadingResults} slackChannels={results} />
         ) : null}
       </ContentContainer>
       <ControlsDiv>
