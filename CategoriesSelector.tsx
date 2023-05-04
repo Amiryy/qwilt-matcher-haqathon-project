@@ -177,24 +177,16 @@ const CategoriesSelector: React.FC<Props> = (props) => {
               }
             )
               .then((res) => res.json())
-              .then(() => {
+              .then((data) => {
                 setIsLoadingResults(false);
-                setResults([
-                  {
-                    id: '123abcd',
-                    name: 'qwilt-runners',
-                  },
-                ]);
+                console.log(data);
+                setResults(
+                  typeof data === 'string' ? JSON.parse(data) : data.groups
+                );
               })
               .catch((e) => {
                 setIsLoadingResults(false);
                 console.error(e);
-                setResults([
-                  {
-                    id: '123abcd',
-                    name: 'qwilt-runners',
-                  },
-                ]);
               });
           }
           setStep(nextStep);

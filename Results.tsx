@@ -10,6 +10,15 @@ const ChannelDiv = styled.div`
   display: grid;
   grid-auto-flow: column;
   grid-gap: 0.5rem;
+  justify-self: center;
+  padding: 1rem 2rem;
+  background-color: white;
+  box-shadow: 0 8px 10px 20px rgba(0,0,0,0.1);
+  align-items: center;
+  border-radius: 16px;
+  cursor: pointer;
+  max-width: 100vw;
+  width: 40rem;
 `;
 const TitleSpn = styled.div`
   width: 100vw;
@@ -50,7 +59,9 @@ export function Results(props: ResultsProps) {
           }}
         >
           {channel.name}
-          {channel.id ? 'Channel is Ready' : ' Channel not yet created'}
+          {channel.id
+            ? 'Channel is Ready'
+            : 'This channel will be created for you soon'}
         </ChannelDiv>
       ))}
     </ResultsDiv>

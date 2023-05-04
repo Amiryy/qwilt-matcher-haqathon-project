@@ -10,6 +10,7 @@ export interface ActivityType {
 
 export interface SlackChannelType {
   id?: string;
+  employees: string[];
   name: string;
 }
 
