@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "lib": ["es2019"],
+    "esModuleInterop": true,
+    "jsxFragmentFactory": "React.Fragment",
+    "jsxFactory": "React.createElement"
+  }
+}
