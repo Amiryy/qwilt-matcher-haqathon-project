@@ -9,7 +9,7 @@ const AppView = styled.div`
   height: 100vh;
   display: grid;
   background-color: #63A6D5;
-  background-image: url("https://cdn.discordapp.com/attachments/1007944362619060275/1103336256064196688/Qwilt_Digital_Background-10_1.jpg");
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/qwilt-matcher.appspot.com/o/Qwilt_Digital_Background-10%201.jpg?alt=media&token=adc840ed-7e3c-4b09-a77e-4f459acf2919");
   background-size: cover;
   background-repeat: no-repeat;
   align-items: center;
